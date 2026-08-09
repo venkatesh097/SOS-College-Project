@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">LoRa Emergency System</string>
+    <string name="sos_button">SOS</string>
+    <string name="connection_status">Status: %1$s</string>
+    <string name="connected">Connected</string>
+    <string name="disconnected">Disconnected</string>
+    <string name="connecting">Connecting...</string>
+    <string name="channel_name">Bluetooth Service</string>
+    <string name="channel_desc">Maintains connection to ESP32</string>
+    <string name="sos_sent">SOS Message Sent!</string>
+    <string name="custom_message_hint">Type your message...</string>
+    <string name="send">Send</string>
+    <string name="scan_devices">Scan for Devices</string>
+    <string name="stop_scan">Stop Scan</string>
+</resources>
