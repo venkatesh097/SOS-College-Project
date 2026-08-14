@@ -20,6 +20,9 @@ import android.os.Vibrator;
 import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
+import android.content.pm.PackageManager;
+import android.Manifest;
 
 import com.example.loracommunication.R;
 import com.example.loracommunication.data.AppDatabase;
@@ -73,6 +76,7 @@ public class BluetoothService extends Service {
         connectedDeviceName = deviceName;
         
         Intent intent = new Intent(ACTION_STATE_CHANGED);
+        intent.setPackage(getPackageName());
         intent.putExtra(EXTRA_STATE, state.ordinal());
         intent.putExtra(EXTRA_DEVICE_NAME, deviceName);
         sendBroadcast(intent);
@@ -86,6 +90,7 @@ public class BluetoothService extends Service {
         createNotificationChannel();
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         startForeground(1, getNotification("Service Started"));
@@ -136,7 +141,13 @@ public class BluetoothService extends Service {
             if (connectedThread == null) return;
             r = connectedThread;
         }
-        r.write(out);
+
+        // Ensure the message ends with a newline
+        String messageStr = new String(out);
+        if (!messageStr.endsWith("\n")) {
+            messageStr += "\n";
+        }
+        r.write(messageStr.getBytes());
     }
 
     private class ConnectThread extends Thread {
@@ -203,25 +214,38 @@ public class BluetoothService extends Service {
         public void run() {
             byte[] buffer = new byte[1024];
             int bytes;
+            StringBuilder readMessage = new StringBuilder();
             while (true) {
                 try {
                     bytes = mmInStream.read(buffer);
-                    String incomingMessage = new String(buffer, 0, bytes);
-                    
-                    // Save to database
-                    boolean isSos = incomingMessage.contains("SOS");
-                    Message msg = new Message("Remote", incomingMessage, System.currentTimeMillis(), 0, 0, isSos, false);
-                    executor.execute(() -> db.messageDao().insert(msg));
+                    String chunk = new String(buffer, 0, bytes);
+                    readMessage.append(chunk);
 
-                    if (isSos) {
-                        triggerEmergencyAlert(incomingMessage);
-                    } else {
-                        triggerNormalAlert(incomingMessage);
+                    int endOfLineIndex = readMessage.indexOf("\n");
+                    while (endOfLineIndex > -1) {
+                        String incomingMessage = readMessage.substring(0, endOfLineIndex).trim(); // Handles \r\n and whitespace
+                        readMessage.delete(0, endOfLineIndex + 1);
+
+                        if (!incomingMessage.isEmpty()) {
+                            // Save to database
+                            boolean isSos = incomingMessage.contains("SOS");
+                            Message msg = new Message("Remote", incomingMessage, System.currentTimeMillis(), 0, 0, isSos, false);
+                            executor.execute(() -> db.messageDao().insert(msg));
+
+                            if (isSos) {
+                                triggerEmergencyAlert(incomingMessage);
+                            } else {
+                                triggerNormalAlert(incomingMessage);
+                            }
+
+                            Intent intent = new Intent("com.example.loracommunication.BLUETOOTH_DATA");
+                            intent.setPackage(getPackageName());
+                            intent.putExtra("data", incomingMessage);
+                            sendBroadcast(intent);
+                        }
+
+                        endOfLineIndex = readMessage.indexOf("\n");
                     }
-
-                    Intent intent = new Intent("com.example.loracommunication.BLUETOOTH_DATA");
-                    intent.putExtra("data", incomingMessage);
-                    sendBroadcast(intent);
                 } catch (IOException e) {
                     Log.e(TAG, "disconnected", e);
                     setState(BluetoothService.State.NONE, null);
@@ -291,7 +315,13 @@ public class BluetoothService extends Service {
         showNotification("BT_CHANNEL", "New Message", message, NotificationCompat.PRIORITY_DEFAULT);
     }
 
+    @SuppressLint({"MissingPermission", "NotificationPermission"})
     private void showNotification(String channelId, String title, String content, int priority) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+        }
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Notification notification = new NotificationCompat.Builder(this, channelId)
                 .setContentTitle(title)
@@ -316,7 +346,13 @@ public class BluetoothService extends Service {
                 .build();
     }
 
+    @SuppressLint({"MissingPermission", "NotificationPermission"})
     private void updateNotification(String content) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+        }
         NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
         manager.notify(1, getNotification(content));
     }
