@@ -1,0 +1,25 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.LoRaCommunication" parent="Theme.Material3.DayNight">
+        <item name="colorPrimary">@color/emergency_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/emergency_red_container</item>
+        <item name="colorOnPrimaryContainer">@color/emergency_red_on_container</item>
+        <item name="colorSecondary">@color/emergency_red_light</item>
+        <item name="android:colorBackground">@color/app_background</item>
+        <item name="colorSurface">@color/card_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+    </style>
+
+    <style name="Theme.LoRaCommunication" parent="Base.Theme.LoRaCommunication">
+        <item name="android:windowLayoutInDisplayCutoutMode" tools:targetApi="o_mr1">shortEdges</item>
+    </style>
+
+    <style name="Theme.LoRaCommunication.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/emergency_red</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="android:colorBackground">@color/app_background</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+    </style>
+</resources>

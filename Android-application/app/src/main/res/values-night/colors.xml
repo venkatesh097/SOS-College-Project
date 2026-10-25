@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Primary Brand Colors for Dark Theme -->
+    <color name="emergency_red">#FF5252</color>
+    <color name="emergency_red_dark">#D32F2F</color>
+    <color name="emergency_red_light">#FF867C</color>
+    <color name="emergency_red_container">#3B1818</color>
+    <color name="emergency_red_on_container">#FFCDD2</color>
+
+    <!-- App Surface & Background -->
+    <color name="app_background">#121212</color>
+    <color name="card_surface">#1E1E1E</color>
+    <color name="surface_variant">#2C2C2C</color>
+    <color name="text_primary">#EAEAEA</color>
+    <color name="text_secondary">#B0BEC5</color>
+    <color name="divider_color">#333333</color>
+
+    <!-- Status Indicators for Dark Theme -->
+    <color name="status_connected">#81C784</color>
+    <color name="status_connected_bg">#1B381E</color>
+    <color name="status_disconnected">#9E9E9E</color>
+    <color name="status_disconnected_bg">#2A2A2A</color>
+    <color name="status_connecting">#FFD54F</color>
+    <color name="status_connecting_bg">#3A3010</color>
+
+    <!-- Chat Message Bubbles -->
+    <color name="bubble_sent_bg">#B71C1C</color>
+    <color name="bubble_sent_text">#FFFFFF</color>
+    <color name="bubble_received_bg">#2C2C2C</color>
+    <color name="bubble_received_text">#E0E0E0</color>
+    <color name="chip_location_bg">#1A237E</color>
+    <color name="chip_location_text">#90CAF9</color>
+</resources>

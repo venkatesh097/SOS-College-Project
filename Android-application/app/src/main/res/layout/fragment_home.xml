@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <!-- Status Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeColor="@color/divider_color"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/iv_status_icon"
+                        android:layout_width="44dp"
+                        android:layout_height="44dp"
+                        android:background="@drawable/ic_bluetooth"
+                        android:backgroundTint="@color/status_disconnected_bg"
+                        android:contentDescription="@string/bluetooth_desc"
+                        android:padding="10dp"
+                        android:src="@drawable/ic_bluetooth"
+                        app:tint="@color/status_disconnected" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/connection_status"
+                            android:textColor="@color/text_primary"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tv_device_info"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/no_module_connected"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_last_heard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Last heard: --"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Diagnostics row with Badges -->
+                <LinearLayout
+                    android:id="@+id/layout_diagnostics"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/tv_mpu_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/surface_variant"
+                        android:gravity="center"
+                        android:paddingVertical="6dp"
+                        android:text="MPU: --"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_gps_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@color/surface_variant"
+                        android:gravity="center"
+                        android:paddingVertical="6dp"
+                        android:text="GPS: --"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_lora_status"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:background="@color/surface_variant"
+                        android:gravity="center"
+                        android:paddingVertical="6dp"
+                        android:text="LoRa: --"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Location Source row -->
+                <LinearLayout
+                    android:id="@+id/layout_location_source"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Location source:"
+                        android:textColor="@color/text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_location_source"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:background="@color/surface_variant"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
+                        android:text="None"
+                        android:textColor="@color/text_primary"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Quick Actions row: Ping Node & Refresh Status -->
+                <LinearLayout
+                    android:id="@+id/layout_node_actions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_status"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:text="Refresh Status"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_ping"
+                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:text="Ping Node"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+                <!-- Ping Latency Indicator -->
+                <TextView
+                    android:id="@+id/tv_ping_latency"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp"
+                    android:visibility="gone"
+                    tools:text="PONG from NODE A (latency: 124ms)" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Warning Banner when GPS is None -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_no_gps_warning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="#FFF8E1"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeColor="#FFE082"
+            app:strokeWidth="1.5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="14dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_location"
+                    app:tint="#F57F17" />
+
+                <TextView
+                    android:id="@+id/tv_no_gps_warning"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:text="SOS alerts will have no coordinates - tap to enable phone GPS"
+                    android:textColor="#F57F17"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Fall Monitoring Banner -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_fall_monitoring"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="#FFF3E0"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="2dp"
+            app:strokeColor="#FFB74D"
+            app:strokeWidth="1.5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tv_fall_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="High impact detected: monitoring"
+                    android:textColor="#E65100"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_fall_countdown"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Time remaining: 03:00"
+                    android:textColor="#D84315"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_fall_desc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Automatic FALL SOS follows if countdown reaches 00:00 without movement."
+                    android:textColor="@color/text_primary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- SOS Emergency Section -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardBackgroundColor="@color/emergency_red_container"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="28dp">
+
+                <!-- Stack SOS button with circular hold progress -->
+                <FrameLayout
+                    android:layout_width="196dp"
+                    android:layout_height="196dp">
+
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                        android:id="@+id/progress_sos_hold"
+                        android:layout_width="196dp"
+                        android:layout_height="196dp"
+                        android:layout_gravity="center"
+                        android:max="2000"
+                        android:progress="0"
+                        app:indicatorColor="@color/emergency_red_dark"
+                        app:indicatorSize="196dp"
+                        app:trackColor="#40D32F2F"
+                        app:trackCornerRadius="4dp"
+                        app:trackThickness="8dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btn_sos"
+                        style="@style/Widget.Material3.Button.ElevatedButton"
+                        android:layout_width="170dp"
+                        android:layout_height="170dp"
+                        android:layout_gravity="center"
+                        android:backgroundTint="@color/emergency_red"
+                        android:elevation="8dp"
+                        android:text="@string/sos_button"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        android:textStyle="bold"
+                        app:cornerRadius="85dp"
+                        app:icon="@drawable/ic_sos"
+                        app:iconGravity="top"
+                        app:iconPadding="4dp"
+                        app:iconSize="32dp"
+                        app:iconTint="@color/white" />
+
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_sos_hint"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="HOLD 2 SECONDS TO TRIGGER SOS"
+                    android:textAlignment="center"
+                    android:textColor="@color/emergency_red_dark"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_sos_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:gravity="center"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:text="SOS sent over LoRa" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Manage Connection Button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_connect_bt"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="12dp"
+            android:text="@string/manage_connection"
+            app:icon="@drawable/ic_bluetooth" />
+
+    </LinearLayout>
+
+</ScrollView>

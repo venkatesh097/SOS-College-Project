@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Radio Signal Waves -->
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M32,38 A 28,28 0 0,1 76,38"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="3.5" />
+
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M38,46 A 18,18 0 0,1 70,46"
+        android:strokeColor="#FFFFFF"
+        android:strokeLineCap="round"
+        android:strokeWidth="3.5" />
+
+    <!-- Emergency Shield -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,46 L68,52 C68,68 54,76 54,78 C54,76 40,68 40,52 Z" />
+
+    <!-- Emergency Cross Inside Shield -->
+    <path
+        android:fillColor="#D32F2F"
+        android:pathData="M52,54 h4 v4 h4 v4 h-4 v4 h-4 v-4 h-4 v-4 h4 z" />
+
+</vector>
