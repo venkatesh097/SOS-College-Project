@@ -22,14 +22,25 @@ android {
 
     buildTypes {
         release {
-            optimization {
-                enable = false
-            }
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    testOptions {
+        unitTests {
+            isReturnDefaultValues = true
+        }
+    }
+    buildFeatures {
+        buildConfig = true
     }
 }
 
@@ -49,10 +60,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment:$nav_version")
     implementation("androidx.navigation:navigation-ui:$nav_version")
 
-    // Location
+    // Google Play Services Location for phone GPS fallback
     implementation("com.google.android.gms:play-services-location:21.2.0")
 
     testImplementation(libs.junit)
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
     androidTestImplementation(libs.espresso.core)
     androidTestImplementation(libs.ext.junit)
 }

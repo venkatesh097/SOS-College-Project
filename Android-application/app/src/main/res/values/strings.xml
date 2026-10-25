@@ -12,4 +12,49 @@
     <string name="send">Send</string>
     <string name="scan_devices">Scan for Devices</string>
     <string name="stop_scan">Stop Scan</string>
+    <string name="no_module_connected">No module connected</string>
+    <string name="press_sos_hint">Press for 2 seconds to trigger SOS</string>
+    <string name="manage_connection">Manage Connection</string>
+    <string name="bluetooth_devices">Bluetooth Devices</string>
+    <string name="message_history">Message History</string>
+    <string name="clear_all">Clear All</string>
+    <string name="user_profile">User Profile</string>
+    <string name="username">Username</string>
+    <string name="device_id">Device ID</string>
+    <string name="save_settings">Save Settings</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    <string name="bluetooth_desc">Bluetooth icon</string>
+    <string name="tap_view_map">Tap to view map</string>
+    <string name="sos_alert_badge">EMERGENCY SOS</string>
+    <string name="currently_connected">Currently Connected</string>
+
+    <!-- Theme Strings -->
+    <string name="appearance_settings">Appearance</string>
+    <string name="theme_mode">App Theme</string>
+    <string name="theme_system">System Default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+
+    <!-- Node Commands & Diagnostics -->
+    <string name="query_status">Check Node Status</string>
+    <string name="ping_node">Ping Node</string>
+    <string name="fall_monitoring_active">Impact detected! Silent 3-minute inactivity monitoring started.</string>
+    <string name="fall_monitoring_cancelled">Movement detected. Fall monitoring cancelled.</string>
+    <string name="node_diagnostics">Node Diagnostics</string>
+    <string name="mpu_status_label">MPU: %1$s</string>
+    <string name="gps_status_label">GPS: %1$s</string>
+    <string name="lora_status_label">LoRa: %1$s</string>
+    <string name="sent_over_lora">Sent over LoRa</string>
+    <string name="received_over_lora">Received over LoRa</string>
+    <string name="no_gps_fix">No GPS fix</string>
+    <string name="command_error">Node error: %1$s</string>
+    <string name="fall_alert_badge">FALL SOS</string>
+    <string name="not_connected_hint">Not connected to LoRa node</string>
+    <string name="sos_triggering">Sending SOS over LoRa...</string>
+    <string name="ping_sent">Ping sent</string>
+    <string name="pong_received">PONG from %1$s</string>
+    <string name="status_query_sent">Querying status...</string>
+    <string name="protocol_info_title">LoRa Node Protocol</string>
+    <string name="protocol_info_desc">Commands: MSG|&lt;text&gt;, SOS, STATUS, PING\nCoordinates supplied by Node GPS.</string>
 </resources>

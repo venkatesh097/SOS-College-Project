@@ -2,40 +2,102 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/tv_connected_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="6dp"
+        android:text="@string/no_module_connected"
+        android:textColor="@color/text_secondary"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_messages"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/layout_input"
+        android:clipToPadding="false"
+        android:paddingBottom="4dp"
+        app:layout_constraintBottom_toTopOf="@id/scroll_quick_replies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/tv_connected_status" />
+
+    <!-- Quick Reply Chips Row -->
+    <HorizontalScrollView
+        android:id="@+id/scroll_quick_replies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingVertical="2dp"
+        android:scrollbars="none"
+        app:layout_constraintBottom_toTopOf="@id/layout_input"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chip_group_quick_replies"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true" />
+
+    </HorizontalScrollView>
 
     <LinearLayout
         android:id="@+id/layout_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:padding="8dp"
+        android:paddingTop="4dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
-        <EditText
-            android:id="@+id/et_message"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_message"
+            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:hint="@string/custom_message_hint"
-            android:importantForAutofill="no"
-            android:inputType="textShortMessage" />
+            app:boxCornerRadiusBottomEnd="24dp"
+            app:boxCornerRadiusBottomStart="24dp"
+            app:boxCornerRadiusTopEnd="24dp"
+            app:boxCornerRadiusTopStart="24dp"
+            app:counterEnabled="true"
+            app:counterMaxLength="100"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/custom_message_hint"
+                android:imeOptions="actionSend"
+                android:importantForAutofill="no"
+                android:inputType="textShortMessage"
+                android:maxLength="100"
+                android:paddingVertical="12dp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_send"
-            style="@style/Widget.Material3.Button.IconButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/send" />
+            style="@style/Widget.Material3.Button.Icon"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="@color/emergency_red"
+            android:contentDescription="@string/send"
+            app:cornerRadius="24dp"
+            app:icon="@drawable/ic_send"
+            app:iconGravity="textStart"
+            app:iconPadding="0dp"
+            app:iconTint="@color/white" />
 
     </LinearLayout>
 
